@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculadora de IMC</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="menu">
+            <!-- Aqui vai o seu menu -->
+            <ul>
+                <li><a href="#">Link</a></li>
+            </ul>
+        </div>
+
+        <div class="main">
+            <div class="header">
+                <h1>calculadora de IMC</h1>
+                <div class="menu-header">
+                    <a href="#">Contato</a>
+                    <a href="#">Horário de atendimento</a>
+                    <a href="#">Sobre</a>
+                    <a href="#">Home</a>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- Aqui vai o seu conteúdo -->
+                <h2>Calculadora de IMC</h2>
+
+                <label>Digite seu peso (kg):</label><br> 
+                <input type="number" id="peso" placeholder="Ex: 70"><br><br>
+
+                <label>Digite sua altura (m):</label><br>
+                <input type="number" step="0.01" id="altura" placeholder="Ex: 1.75"><br><br>
+
+                <button onclick="calcular()">Calcular</button>
+
+                <div id="resultado"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calcular() {
+            let peso = parseFloat(document.getElementById("peso").value);
+            let altura = parseFloat(document.getElementById("altura").value);
+            let resultadoDiv = document.getElementById("resultado");
+
+            if (isNaN(peso) || isNaN(altura) || peso <= 0 || altura <= 0) {
+                resultadoDiv.innerHTML = "<p style='color: red;'>Digite valores válidos!</p>";
+                return;
+            }
+
+            let imc = (peso / (altura * altura)).toFixed(2);
+            let mensagem = "";
+            let imagem = "";
+
+            if (imc <= 18.5) {
+                mensagem = "Você está abaixo do peso.";
+                imagem = "imagem1.jpg";
+            } else if (imc <= 24.9) {
+                mensagem = "Você está no peso normal.";
+                imagem = "imagem2.jpg";
+            } else if (imc <= 29.9) {
+                mensagem = "Você está com excesso de peso.";
+                imagem = "imagem3.jpg";
+            } else if (imc <= 34.9) {
+                mensagem = "Você está com obesidade classe I.";
+                imagem = "imagem4.jpg";
+            } else if (imc <= 39.9) {
+                mensagem = "Você está com obesidade classe II.";
+                imagem = "imagem5.jpg";
+            } else {
+                mensagem = "Você está com obesidade classe III.";
+                imagem = "imagem6.jpg";
+            }
+
+            resultadoDiv.innerHTML = `
+                <p>Seu IMC é <strong>${imc}</strong>. ${mensagem}</p>
+                <img src="${imagem}" alt="Resultado" style="max-width:200px; margin-top:10px;">
+            `;
+        }
+    </script>
+</body>
+</html>
